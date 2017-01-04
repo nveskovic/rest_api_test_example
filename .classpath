@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/bsh.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-json.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-xml.jar"/>
+	<classpathentry kind="lib" path="lib/groovy.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-library.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore.jar"/>
+	<classpathentry kind="lib" path="lib/httpmime.jar"/>
+	<classpathentry kind="lib" path="lib/jcommander.jar"/>
+	<classpathentry kind="lib" path="lib/json-path.jar"/>
+	<classpathentry kind="lib" path="lib/logback-classic.jar"/>
+	<classpathentry kind="lib" path="lib/logback-core.jar"/>
+	<classpathentry kind="lib" path="lib/rest-assured-common.jar"/>
+	<classpathentry kind="lib" path="lib/rest-assured.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>
+	<classpathentry kind="lib" path="lib/tagsoup.jar"/>
+	<classpathentry kind="lib" path="lib/testng.jar"/>
+	<classpathentry kind="lib" path="lib/xml-path.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

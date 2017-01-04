@@ -1,0 +1,130 @@
+<project name="RestApiTest" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<!--
+    ================
+    Build properties
+    ================
+    -->
+	<property name="src.dir" location="src"/>
+	<property name="build.dir" location="build"/>
+	<property name="lib.dir" location="lib"/>
+	<property name="classes.dir" location="${build.dir}/classes"/>
+	<property name="javadoc.dir" location="${build.dir}/javadoc"/>
+	<property name="ivy.reports.dir"  location="${build.dir}/ivy-reports"/>
+	<property name="resources.dir" location="resources"/>
+	<property name="testng_suites.dir" location="${resources.dir}/testng_suites"/>
+	
+	<!-- Set the default suite file to use if none provided from cmd line -->
+	<property name="SUITE_FILE" value="p1-tests.xml"/>
+
+	<!--
+    ===========
+    Build setup
+    ===========
+    -->
+	<target name="init">
+
+		<path id="lib.classpath">
+			<fileset  dir="${lib.dir}" includes="**/*.jar"/>
+		</path>
+		<path id="project.classpath">
+			<path refid="lib.classpath"/>
+			<fileset dir="${classes.dir}" includes="**/*.class"/>
+			<dirset dir="${classes.dir}"/>
+		</path>
+
+		<ivy:resolve/>
+		<mkdir dir="${lib.dir}"/>
+		<ivy:retrieve pattern="${lib.dir}/[artifact].[ext]"/>
+
+		<ivy:report todir='${ivy.reports.dir}' graph='false' xml='false'/>
+
+		<ivy:cachepath pathid="compile.path" conf="compile"/>
+
+		<!-- extract testng from zip archive -->
+		<unzip dest="${lib.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="testng*.zip" />
+			</fileset>
+			<patternset>
+				<include name="testng*/testng*.jar"/>
+			</patternset>
+		</unzip>
+		<!-- delete dowloaded zip -->
+		<delete>
+			<fileset dir="${lib.dir}" includes ="testng*.zip" />
+		</delete>
+	</target>
+
+	<!--
+    ===============
+    Compile targets
+    ===============
+    -->
+	<target name="compile" depends="init">
+		<mkdir dir="${classes.dir}"/>
+		<javac 
+        	srcdir="${src.dir}" 
+        	destdir="${classes.dir}" 
+        	includeantruntime="false" 
+        	debug="true" 
+    		classpathref="lib.classpath"
+        	>
+		</javac>
+	</target>
+
+	<!--
+    =====================
+    Build and run targets
+    =====================
+    -->
+	<target name="build" depends="compile"/>
+
+	<!--
+    =============
+    Clean targets
+    =============
+    -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${lib.dir}"/>
+		<delete dir="${classes.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+	</target>
+
+	<target name="clean-all" depends="clean">
+		<ivy:cleancache/>
+	</target>
+
+	<target name="run-testng" depends="compile">
+		<taskdef name="testng" classname="org.testng.TestNGAntTask">
+			<classpath refid="project.classpath"/>
+		</taskdef>
+		<testng
+			dumpCommand="true"
+			haltonfailure="true"
+			classpathref="project.classpath"
+		>
+			<xmlfileset dir="${testng_suites.dir}" includes="${SUITE_FILE}"/>
+		</testng>
+	</target>
+
+	<!--
+	===============
+	Publish Javadoc
+	===============
+	-->
+	<!-- Generate javadocs for current project into ${javadoc.dir} -->
+	<target name="javadoc" depends="compile" description="generate documentation">
+		<delete dir="${javadoc.dir}"/>
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc sourcepath="${src.dir}" 
+			package="com.toptaltest.restapitest.tests"
+			destdir="${javadoc.dir}">
+			
+			<classpath refid= "project.classpath"/>
+			
+		</javadoc>
+	</target>
+
+</project>

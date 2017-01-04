@@ -1,0 +1,20 @@
+<ivy-module version="2.0">
+    <info organisation="com.toptaltest" module="RestApiTest"/>
+
+    <configurations defaultconfmapping="compile->default">
+        <conf name="compile" description="Required to compile application"/>
+    </configurations>
+
+    <dependencies>
+        <!-- compile dependencies -->
+        <dependency org="org.slf4j" name="slf4j-api" rev="latest.integration"/>
+        <dependency org="ch.qos.logback" name="logback-classic" rev="latest.integration"/>
+        <dependency org="org.testng" name="testng" rev="6.9.10"/>
+        <!-- dependency org="com.google.http-client" name="google-http-client" rev="latest.integration"/ -->
+        
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+		<dependency org="io.rest-assured" name="rest-assured" rev="3.0.1"/>
+        
+	</dependencies>
+
+</ivy-module>
